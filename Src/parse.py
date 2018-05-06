@@ -5,29 +5,31 @@ import numpy as np
 import math
 
 
-bin_size = 500000  # Megabyte
-data = pd.read_table('data/ch7.txt', sep=' ', header=None)
-#print(data.head())
 
-connections = data[[2, 4]]
-connections.columns = [1, 2]
+def calculateContact():
 
+    bin_size = 500000  # Megabyte
+    data = pd.read_table('data/ch7.txt', sep=' ', header=None)
+    # print(data.head())
 
+    connections = data[[2, 4]]
+    connections.columns = [1, 2]
 
-sorted_data = connections.sort_values(by=[1])
-# bin the data
-binned_data = sorted_data//bin_size
-# start at bin 1
-binned_data = binned_data + 1
-# remove connection to self
-binned_data = binned_data[binned_data[1]!=binned_data[2]]
-# remove connects that are already found
-binned_data = binned_data[binned_data[1] < binned_data[2]]
-#print(binned_data.head())
-out_data = binned_data.groupby([1,2]).size()
-out_data.to_csv('chr_7_500kb.txt', sep='\t')
-#print(sorted_data.head())
-exit()
+    sorted_data = connections.sort_values(by=[1])
+    # bin the data
+    binned_data = sorted_data // bin_size
+    # start at bin 1
+    binned_data = binned_data + 1
+    # remove connection to self
+    binned_data = binned_data[binned_data[1] != binned_data[2]]
+    # remove connects that are already found
+    binned_data = binned_data[binned_data[1] < binned_data[2]]
+    # print(binned_data.head())
+    out_data = binned_data.groupby([1, 2]).size()
+    out_data.to_csv('chr_7_500kb.txt', sep='\t')
+    # print(sorted_data.head())
+    exit()
+
 
 def Evaluation(wishDistance, recontructedDistance):
     correlation = spearmanr(wishDistance, recontructedDistance, axis=None)
@@ -45,7 +47,6 @@ def normalization(matric):
             result[i][j] = result[j][i] = matric[i][j]/(rowSum_i * rowSum_j)*total
 
     return result
-
 
 
 def CaDistanceMatrix(fileName):
@@ -75,3 +76,5 @@ def PointDistance(pointFir, pointSec):
     dist = math.sqrt(new_array[0]+new_array[1]+new_array[2])
     return dist
 
+
+CaDistanceMatrix("LorDG/output/chromo_7_1MB_1525635742467.pdb")
