@@ -58,6 +58,7 @@ def normalization(matric):
     return result
 
 
+
 def CaDistanceMatrix(fileName):
     A = []
     for line in open(fileName):
