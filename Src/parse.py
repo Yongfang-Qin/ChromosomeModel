@@ -29,20 +29,31 @@ def calculateContact():
     exit()
 
 
-def Evaluation(wishDistance, recontructedDistance):
-    correlation = spearmanr(wishDistance, recontructedDistance, axis=None)
+def Evaluation(wishMatrix, recontructedDistance):
+
+    small_number = 0.1
+    dim = len(wishMatrix)
+    wishDistance = [dim][dim]
+    correlation = []
+    while small_number < 5:
+
+        for i in range(dim):
+            for j in range(dim):
+                wishDistance[i][j] = 1/(wishMatrix[i][j] ** small_number)
+
+        correlation.append(spearmanr(wishDistance, recontructedDistance, axis=None))
+        small_number += .2
     return correlation
 
 
 def normalization(matric):
     dim = len(matric)
     total = sum([sum(i) for i in matric])
+    rowSum = [sum(matric[i]) for i in range(dim)]
     result = [dim][dim]
     for i in range(dim):
         for j in range(dim):
-            rowSum_i = [sum(matric[i]) for i in range(len(dim))]
-            rowSum_j = [sum(matric[j]) for j in range(len(dim))]
-            result[i][j] = result[j][i] = matric[i][j]/(rowSum_i * rowSum_j)*total
+            result[i][j] = result[j][i] = matric[i][j]/(rowSum[i] * rowSum[j])*total
 
     return result
 
