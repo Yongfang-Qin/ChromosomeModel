@@ -4,7 +4,7 @@ NUM = 1
 
 OUTPUT_FOLDER = output/
 
-INPUT_FILE = input/chromo_7_1MB.txt
+INPUT_FILE = input/chr_7_kb.txt
 
 
 #factor used to convert IF into distance = 1 / (IF^factor)

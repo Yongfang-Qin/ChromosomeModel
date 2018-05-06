@@ -1,0 +1,3 @@
+Input file: input/chr_7_kb.txt
+Convert factor: 1.1
+Learning rate: 1.0
