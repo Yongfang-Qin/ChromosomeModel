@@ -34,17 +34,7 @@ def Evaluation(wishDistance, recontructedDistance):
     return correlation
 
 
-def normalization(matric):
-    dim = len(matric)
-    total = sum([sum(i) for i in matric])
-    result = [dim][dim]
-    for i in range(dim):
-        for j in range(dim):
-            rowSum_i = [sum(matric[i]) for i in range(len(dim))]
-            rowSum_j = [sum(matric[j]) for j in range(len(dim))]
-            result[i][j] = result[j][i] = matric[i][j]/(rowSum_i * rowSum_j)*total
 
-    return result
 
 
 def CaDistanceMatrix(fileName):

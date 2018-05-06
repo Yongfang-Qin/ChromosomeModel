@@ -1,9 +1,27 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from functools import reduce
 
 import seaborn as sb
 
+def normalization(matric):
+    dim = len(matric)
+    rowSum = [reduce(lambda x, y: x + y, item) for item in matric]
+    #rowSum = sum(sum(matric[i]) for i in range(dim))
+    total = sum([sum(i) for i in matric])
+    print(total)
+    result = [[None] * dim for i in range(dim)]
+    for i in range(dim):
+        for j in range(dim):
+            #print(i, '\t', j, '\t', dim)
+
+            if rowSum[i] != 0 and rowSum[j] != 0:
+                result[i][j] = (matric[i][j]/(rowSum[i] * rowSum[j]))
+            else:
+                result[i][j] = 0
+
+    return result
 
 if __name__ == '__main__':
     binned_data = pd.read_csv('../Results/chromo_7_1MB.txt', sep='\t', header=None)
@@ -14,14 +32,14 @@ if __name__ == '__main__':
     size = max(max(x),max(y))
     print(size+1)
 
-    list_matrix = [[0] * (size) for i in range(size)]
+    list_matrix = [[0] * (size+1) for i in range(size+1)]
 
     i = 0
 
     while i < len(x):
         string = str(x[i]) + '\t' +str(y[i]) + '\t' + str(matrix_data[i])
         print(string)
-        list_matrix[x[i]-1][y[i]-1] = matrix_data[i]
+        list_matrix[x[i]][y[i]] = matrix_data[i]
 
         i += 1
 
@@ -41,3 +59,11 @@ if __name__ == '__main__':
     #plt.show()
     plt.close()
     print(out_matrix)
+
+
+    norm_matrix = normalization(out_matrix)
+
+    plt.imshow(norm_matrix, cmap='BrBG')
+    plt.savefig('../Results/contact_matrix_after_norm.png')
+    #plt.show()
+    plt.close()
