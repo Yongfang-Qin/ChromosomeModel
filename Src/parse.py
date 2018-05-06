@@ -5,9 +5,7 @@ import numpy as np
 import math
 
 
-
 def calculateContact():
-
     bin_size = 500000  # Megabyte
     data = pd.read_table('data/ch7.txt', sep=' ', header=None)
     # print(data.head())
@@ -57,14 +55,13 @@ def CaDistanceMatrix(fileName):
         if id == 'ATOM':
             type = coordinateList[2]
             if type == 'CA':
-                type_of_chain = coordinateList[4]
-                atom_count = int(coordinateList[5])
-                A.append([float(coordinateList[6]), float(coordinateList[7]), float(coordinateList[8])])
+                A.append([float(coordinateList[5]), float(coordinateList[6]), float(coordinateList[7])])
 
     sizePoints = len(A)
     distMatrix = np.zeros((sizePoints, sizePoints))
     for i, eachFir in enumerate(A):
         for j, eachSec in enumerate(A):
+            print(PointDistance(eachFir, eachSec))
             distMatrix[i][j] = PointDistance(eachFir, eachSec)
             distMatrix[i][j] = distMatrix[j][i]
 
@@ -77,4 +74,4 @@ def PointDistance(pointFir, pointSec):
     return dist
 
 
-CaDistanceMatrix("LorDG/output/chromo_7_1MB_1525635742467.pdb")
+reconstructedDis = CaDistanceMatrix("../LorDG/output/chromo_7_1MB_1525635742467.pdb")

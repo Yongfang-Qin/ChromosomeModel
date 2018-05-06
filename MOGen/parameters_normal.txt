@@ -40,7 +40,7 @@ NEG_MAX_DIST_WEIGHT_FILE = parameters/all_normal/neg_max_dist_weight.txt
 
 OUTPUT_FOLDER = output
 
-INPUT_FILE = input/NoY_All_interIntraContact_1M_nml.txt
+INPUT_FILE = input/chromo_7_1MB.txt
 
 #set VERBOSE = true for information during optimization printed out
 VERBOSE = true
