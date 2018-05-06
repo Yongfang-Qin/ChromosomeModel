@@ -3,19 +3,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from functools import reduce
 
-import seaborn as sb
 
 def normalization(matric):
     dim = len(matric)
     rowSum = [reduce(lambda x, y: x + y, item) for item in matric]
-    #rowSum = sum(sum(matric[i]) for i in range(dim))
     total = sum([sum(i) for i in matric])
     print(total)
     result = [[None] * dim for i in range(dim)]
     for i in range(dim):
         for j in range(dim):
-            #print(i, '\t', j, '\t', dim)
-
             if rowSum[i] != 0 and rowSum[j] != 0:
                 result[i][j] = (matric[i][j]/(rowSum[i] * rowSum[j]))
             else:
@@ -45,8 +41,6 @@ if __name__ == '__main__':
 
 
 
-
-
     for i in range(0, (int(len(list_matrix)))):
         for j in range(i + 1, len(list_matrix)):
             list_matrix[j][i]= list_matrix[i][j]
@@ -65,5 +59,4 @@ if __name__ == '__main__':
 
     plt.imshow(norm_matrix, cmap='BrBG')
     plt.savefig('../Results/contact_matrix_after_norm.png')
-    #plt.show()
     plt.close()

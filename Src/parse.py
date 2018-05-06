@@ -73,10 +73,10 @@ def CaDistanceMatrix(fileName):
     distMatrix = np.zeros((sizePoints, sizePoints))
     for i, eachFir in enumerate(A):
         for j, eachSec in enumerate(A):
-            print(PointDistance(eachFir, eachSec))
             distMatrix[i][j] = PointDistance(eachFir, eachSec)
-            distMatrix[i][j] = distMatrix[j][i]
+            distMatrix[j][i] = distMatrix[i][j]
 
+    print(distMatrix)
     return distMatrix
 
 
